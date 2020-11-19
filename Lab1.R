@@ -118,7 +118,7 @@ matriz_cor <- cor(processed.cleveland[, sapply(processed.cleveland, is.numeric)]
 matriz_cor <- round(matriz_cor, 2)
 
 # Grafico correlaciones
-corrplot(matriz_cor, order = "hclust", 
+matriz_cor_plot <- corrplot(matriz_cor, order = "hclust", 
          tl.col = "black", tl.srt = 45)
 
 
@@ -134,55 +134,102 @@ ggplot(data = processed.cleveland, aes(x = num, y = thalach)) +
   theme(legend.position = "bottom")
 
 
-ggplot(data = processed.cleveland, aes(x = num, y = sex)) +
-  geom_count() +
-  theme_bw() +
-  theme(legend.position = "bottom")
+# Guardando grafica en variable
 
-# guardando grafica en variable
+# Grafico age vs Num
+ageVsNum <- ggplot(data = processed.cleveland,
+                  mapping = aes(x = num,
+                                y = age)) +
+            geom_boxplot() + theme_bw() + labs(y = "Number of major vessel", x = "Heart disease")
+
+# Grafico testbps vs Num
+testbpsVsNum <- ggplot(data = processed.cleveland,
+                   mapping = aes(x = num,
+                                 y = trestbps)) +
+            geom_boxplot() + theme_bw() + labs(y = "Resting blood pressure", x = "Heart disease")
+
+# Grafico chol vs Num
+cholVsNum <- ggplot(data = processed.cleveland,
+                   mapping = aes(x = num,
+                                 y = chol)) +
+            geom_boxplot() + theme_bw() + labs(y = "Serum cholestoral in mg/dl", x = "Heart disease")
+
+# Grafico thalach vs Num
+thalachVsNum <- ggplot(data = processed.cleveland,
+                   mapping = aes(x = num,
+                                 y = thalach)) +
+            geom_boxplot() + theme_bw() + labs(y = "Maximum heart rate achieved", x = "Heart disease")
+
+# Grafico oldpeak vs Num
+oldpeakVsNum <- ggplot(data = processed.cleveland,
+                   mapping = aes(x = num,
+                                 y = oldpeak)) +
+            geom_boxplot() + theme_bw() + labs(y = "ST depression induced by exercise relative to rest", x = "Heart disease")
+
+
 #Grafico de Ca vs Num
 caVsNum <- ggplot(data = processed.cleveland,
             mapping = aes(x = factor(ca),
-                          fill = factor(num)))
-caVsNum + geom_bar(position = 'dodge', stat = 'count')
+                          fill = factor(num))) +
+           geom_bar(position = 'dodge', stat = 'count') + theme_bw() + labs(x = "Number of major vessel", fill = "Heart disease")
+
 #Grafico de cp vs Num
 cpVsNum <- ggplot(data = processed.cleveland,
                   mapping = aes(x = factor(cp),
-                                fill = factor(num)))
-cpVsNum + geom_bar(position = 'dodge', stat = 'count')
+                                fill = factor(num))) +
+           geom_bar(position = 'dodge', stat = 'count') + theme_bw() + labs(x = "Chest pain", fill = "Heart disease")
 
 #Grafico de sex vs Num
 sexVsNum <- ggplot(data = processed.cleveland,
                   mapping = aes(x = factor(sex),
-                                fill = factor(num)))
-sexVsNum + geom_bar(position = 'dodge', stat = 'count')
+                                fill = factor(num))) +
+            geom_bar(position = 'dodge', stat = 'count')   + theme_bw() + labs(x = "Sex", fill = "Heart disease")
 
 #Grafico de fbs vs Num
 fbsVsNum <- ggplot(data = processed.cleveland,
                   mapping = aes(x = factor(fbs),
-                                fill = factor(num)))
-fbsVsNum + geom_bar(position = 'dodge', stat = 'count')
+                                fill = factor(num))) +
+            geom_bar(position = 'dodge', stat = 'count')   + theme_bw() + labs(x = "Fasting blood sugar", fill = "Heart disease")
 
 #Grafico de restcg vs Num
 restecgVsNum <- ggplot(data = processed.cleveland,
                   mapping = aes(x = factor(restecg),
-                                fill = factor(num)))
-restecgVsNum + geom_bar(position = 'dodge', stat = 'count')
+                                fill = factor(num))) +
+                geom_bar(position = 'dodge', stat = 'count')  + theme_bw() + labs(x = "Resting electrocardiographic results", fill = "Heart disease")
 
 #Grafico de exang vs Num
 exangVsNum <- ggplot(data = processed.cleveland,
                   mapping = aes(x = factor(exang),
-                                fill = factor(num)))
-exangVsNum + geom_bar(position = 'dodge', stat = 'count')
+                                fill = factor(num))) +
+              geom_bar(position = 'dodge', stat = 'count') + theme_bw() + labs(x = "Exercise induced angina", fill = "Heart disease")
 
 #Grafico de slope vs Num
 slopeVsNum <- ggplot(data = processed.cleveland,
                   mapping = aes(x = factor(slope),
-                                fill = factor(num)))
-slopeVsNum + geom_bar(position = 'dodge', stat = 'count')
+                                fill = factor(num))) +
+              geom_bar(position = 'dodge', stat = 'count') + theme_bw() + labs(x = "Slope of the peak exercise ST segment", fill = "Heart disease")
 
 #Grafico de thal vs Num
 thalVsNum <- ggplot(data = processed.cleveland,
                   mapping = aes(x = factor(thal),
-                                fill = factor(num)))
-thalVsNum + geom_bar(position = 'dodge', stat = 'count')
+                                fill = factor(num))) +
+             geom_bar(position = 'dodge', stat = 'count') + theme_bw() + labs(x = "thal", fill = "Heart disease")
+
+
+# Plot de los graficos caja (Variables numericas)
+plot(ageVsNum)
+plot(testbpsVsNum)
+plot(cholVsNum)
+plot(thalachVsNum)
+plot(oldpeakVsNum)
+
+# Plot de los graficos barra (Variables categoricas)
+plot(ageVsNum)
+plot(caVsNum)
+plot(cpVsNum)
+plot(sexVsNum)
+plot(fbsVsNum)
+plot(restecgVsNum)
+plot(exangVsNum)
+plot(slopeVsNum)
+plot(thalVsNum)
