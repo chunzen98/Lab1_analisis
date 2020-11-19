@@ -216,6 +216,8 @@ thalVsNum <- ggplot(data = processed.cleveland,
              geom_bar(position = 'dodge', stat = 'count') + theme_bw() + labs(x = "thal", fill = "Heart disease")
 
 
+
+
 # Plot de los graficos caja (Variables numericas)
 plot(ageVsNum)
 plot(testbpsVsNum)
@@ -233,3 +235,15 @@ plot(restecgVsNum)
 plot(exangVsNum)
 plot(slopeVsNum)
 plot(thalVsNum)
+
+
+# Test de chi-cuadrado con num y cada una de las variables, para verificar dependencia con variable discriminadora
+chi_sexVsNum <- chisq.test(table(processed.cleveland$sex, processed.cleveland$num))
+chi_cpVsNum <- chisq.test(table(processed.cleveland$cp, processed.cleveland$num))
+chi_fbsVsNum <- chisq.test(table(processed.cleveland$fbs, processed.cleveland$num))
+chi_restecgVsNum <- chisq.test(table(processed.cleveland$restecg, processed.cleveland$num))
+chi_exangVsNum <- chisq.test(table(processed.cleveland$exang, processed.cleveland$num))
+chi_slopeVsNum <- chisq.test(table(processed.cleveland$slope, processed.cleveland$num))
+chi_caVsNum <- chisq.test(table(processed.cleveland$ca, processed.cleveland$num))
+chi_thalVsNum <- chisq.test(table(processed.cleveland$thal, processed.cleveland$num))
+
