@@ -139,4 +139,50 @@ ggplot(data = processed.cleveland, aes(x = num, y = sex)) +
   theme_bw() +
   theme(legend.position = "bottom")
 
+# guardando grafica en variable
+#Grafico de Ca vs Num
+caVsNum <- ggplot(data = processed.cleveland,
+            mapping = aes(x = factor(ca),
+                          fill = factor(num)))
+caVsNum + geom_bar(position = 'dodge', stat = 'count')
+#Grafico de cp vs Num
+cpVsNum <- ggplot(data = processed.cleveland,
+                  mapping = aes(x = factor(cp),
+                                fill = factor(num)))
+cpVsNum + geom_bar(position = 'dodge', stat = 'count')
 
+#Grafico de sex vs Num
+sexVsNum <- ggplot(data = processed.cleveland,
+                  mapping = aes(x = factor(sex),
+                                fill = factor(num)))
+sexVsNum + geom_bar(position = 'dodge', stat = 'count')
+
+#Grafico de fbs vs Num
+fbsVsNum <- ggplot(data = processed.cleveland,
+                  mapping = aes(x = factor(fbs),
+                                fill = factor(num)))
+fbsVsNum + geom_bar(position = 'dodge', stat = 'count')
+
+#Grafico de restcg vs Num
+restecgVsNum <- ggplot(data = processed.cleveland,
+                  mapping = aes(x = factor(restecg),
+                                fill = factor(num)))
+restecgVsNum + geom_bar(position = 'dodge', stat = 'count')
+
+#Grafico de exang vs Num
+exangVsNum <- ggplot(data = processed.cleveland,
+                  mapping = aes(x = factor(exang),
+                                fill = factor(num)))
+exangVsNum + geom_bar(position = 'dodge', stat = 'count')
+
+#Grafico de slope vs Num
+slopeVsNum <- ggplot(data = processed.cleveland,
+                  mapping = aes(x = factor(slope),
+                                fill = factor(num)))
+slopeVsNum + geom_bar(position = 'dodge', stat = 'count')
+
+#Grafico de thal vs Num
+thalVsNum <- ggplot(data = processed.cleveland,
+                  mapping = aes(x = factor(thal),
+                                fill = factor(num)))
+thalVsNum + geom_bar(position = 'dodge', stat = 'count')
