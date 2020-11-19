@@ -87,8 +87,8 @@ processed.cleveland$ca <- revalue(processed.cleveland$ca, c("0.0" = "No major ve
 
 # Se reemplaza los valores de num > 0 a 1
 processed.cleveland$num[processed.cleveland$num > 0]  <- 1;
-processed.cleveland$num[processed.cleveland$num==1] <- "Present disease";
 processed.cleveland$num[processed.cleveland$num==0] <- "No present disease";
+processed.cleveland$num[processed.cleveland$num==1] <- "Present disease";
 
 
 # Se cambia el tipo de dato de la columna ca y thal a numericos
@@ -107,7 +107,7 @@ summary(processed.cleveland)
 set.seed(112)
 
 # Modelo regresion logistica multiple
-modelo_glm <- glm(num ~ sex + cp + trestbps + chol + fbs + restecg + thalach + exang + oldpeak + slope + ca + thal, 
+modelo_glm <- glm(num ~ age + sex + cp + trestbps + chol + fbs + restecg + thalach + exang + oldpeak + slope + ca + thal, 
                   data = processed.cleveland, family = "binomial")
 
 # Resumen modelo regresion logistica
@@ -122,9 +122,20 @@ corrplot(matriz_cor, order = "hclust",
          tl.col = "black", tl.srt = 45)
 
 
+
+
+
+
 # Grafico prueba
-ggplot(data = processed.cleveland, aes(x = as.factor(num), y = age, colour = as.factor(sex))) +
+ggplot(data = processed.cleveland, aes(x = num, y = thalach)) +
   geom_boxplot() +
+  geom_jitter(width = 0.2) +
+  theme_bw() +
+  theme(legend.position = "bottom")
+
+
+ggplot(data = processed.cleveland, aes(x = num, y = sex)) +
+  geom_count() +
   theme_bw() +
   theme(legend.position = "bottom")
 
