@@ -92,7 +92,6 @@ processed.cleveland$num[processed.cleveland$num==1] <- "Present disease";
 
 
 # Se cambia el tipo de dato de la columna ca y thal a numericos
-# processed.cleveland<-transform(processed.cleveland, ca = as.numeric(ca), thal = as.numeric(thal));
 processed.cleveland<-transform(processed.cleveland, ca = factor(ca), thal = factor(thal), sex = factor(sex), 
                                cp = factor(cp), fbs = factor(fbs),restecg = factor(restecg), exang = factor(exang), slope = factor(slope), num = factor(num));
 
@@ -123,24 +122,12 @@ matriz_cor_plot <- corrplot(matriz_cor, order = "hclust",
 
 
 
-
-
-
-# Grafico prueba
-ggplot(data = processed.cleveland, aes(x = num, y = thalach)) +
-  geom_boxplot() +
-  geom_jitter(width = 0.2) +
-  theme_bw() +
-  theme(legend.position = "bottom")
-
-
-# Guardando grafica en variable
-
+# Grafico caja variables numericas
 # Grafico age vs Num
 ageVsNum <- ggplot(data = processed.cleveland,
                   mapping = aes(x = num,
                                 y = age)) +
-            geom_boxplot() + theme_bw() + labs(y = "Number of major vessel", x = "Heart disease")
+            geom_boxplot() + theme_bw() + labs(y = "Age", x = "Heart disease")
 
 # Grafico testbps vs Num
 testbpsVsNum <- ggplot(data = processed.cleveland,
@@ -167,6 +154,7 @@ oldpeakVsNum <- ggplot(data = processed.cleveland,
             geom_boxplot() + theme_bw() + labs(y = "ST depression induced by exercise relative to rest", x = "Heart disease")
 
 
+# Grafico barra variables categoricas
 #Grafico de Ca vs Num
 caVsNum <- ggplot(data = processed.cleveland,
             mapping = aes(x = factor(ca),
@@ -226,7 +214,6 @@ plot(thalachVsNum)
 plot(oldpeakVsNum)
 
 # Plot de los graficos barra (Variables categoricas)
-plot(ageVsNum)
 plot(caVsNum)
 plot(cpVsNum)
 plot(sexVsNum)
