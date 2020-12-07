@@ -243,18 +243,18 @@ chi_thalVsNum <- chisq.test(table(processed.cleveland$thal, processed.cleveland$
 # Clusterizacion ---------------------------------
 
 # Primero se binarizan todas las variables categoricas.
-processed.cleveland.bin <- cbind(age = scale(processed.cleveland$age), as.data.frame(cbind(with(processed.cleveland, model.matrix(~ sex + 0)))), as.data.frame(cbind(with(processed.cleveland, model.matrix(~ cp + 0)))), trestps = processed.cleveland$trestbps,  chol = processed.cleveland$chol, as.data.frame(cbind(with(processed.cleveland, model.matrix(~ fbs + 0)))), as.data.frame(cbind(with(processed.cleveland, model.matrix(~ restecg + 0)))), thalach = processed.cleveland$thalach, as.data.frame(cbind(with(processed.cleveland, model.matrix(~ exang + 0)))), oldpeak = processed.cleveland$oldpeak, as.data.frame(cbind(with(processed.cleveland, model.matrix(~ slope + 0)))), as.data.frame(cbind(with(processed.cleveland, model.matrix(~ ca + 0)))), as.data.frame(cbind(with(processed.cleveland, model.matrix(~ thal + 0)))), as.data.frame(cbind(with(processed.cleveland, model.matrix(~ num + 0)))));
+processed.cleveland.bin <- cbind(age = processed.cleveland$age, as.data.frame(cbind(with(processed.cleveland, model.matrix(~ sex + 0)))), as.data.frame(cbind(with(processed.cleveland, model.matrix(~ cp + 0)))), trestps = processed.cleveland$trestbps,  chol = processed.cleveland$chol, as.data.frame(cbind(with(processed.cleveland, model.matrix(~ fbs + 0)))), as.data.frame(cbind(with(processed.cleveland, model.matrix(~ restecg + 0)))), thalach = processed.cleveland$thalach, as.data.frame(cbind(with(processed.cleveland, model.matrix(~ exang + 0)))), oldpeak = processed.cleveland$oldpeak, as.data.frame(cbind(with(processed.cleveland, model.matrix(~ slope + 0)))), as.data.frame(cbind(with(processed.cleveland, model.matrix(~ ca + 0)))), as.data.frame(cbind(with(processed.cleveland, model.matrix(~ thal + 0)))), as.data.frame(cbind(with(processed.cleveland, model.matrix(~ num + 0)))));
 
-# Se procede a crear una matriz de dissimilitud
+# Se procede a crear una matriz de disimilitud
 matriz.dis = daisy(processed.cleveland.bin, metric = "gower", type = list(asymm = c(2, 3, 4, 5, 6, 7, 10, 11, 12, 13, 14, 16, 17, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30)))
-
+fviz_dist(matriz.dis) #Se grafica la matriz de dissimilitud
 
 # Para decidir la cantidad de cluster se utiliza el metodo silhouette
-fviz_nbclust(processed.cleveland.bin, kmeans, method = "silhouette")
+fviz_nbclust(processed.cleveland.bin, pam, method = "silhouette")
 
 # Luego se genera el cluster utilizando la funcion pam, con un k = 2
 clust = pam(matriz.dis, 2, diss = T)
-clust$data = processed.cleveland.bin
+clust$data = processed.cleveland.bin # Se le asigna la variable data ya que fviz_cluster lo necesita
 
 #Se grafica el cluster
 fviz_cluster(clust, palette = "jco", ggtheme = theme_minimal())
