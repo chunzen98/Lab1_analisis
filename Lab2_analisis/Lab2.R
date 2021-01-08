@@ -278,7 +278,7 @@ processed.cleveland.cat$oldpeak = cut(processed.cleveland$oldpeak, breaks = c(-I
 rules = apriori(
         data = processed.cleveland.cat, 
         parameter=list(support = 0.2, minlen = 2, maxlen = 6, target="rules"),
-        appearance=list(rhs = c("num=Present disease", "num=No present disease"))
+        appearance=list(rhs = c("num=Present disease"))
 )
 
 

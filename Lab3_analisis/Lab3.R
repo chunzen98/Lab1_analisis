@@ -13,6 +13,7 @@ library(plyr)
 library(ggpubr)
 library(factoextra)
 library(cluster)
+library(arules)
 
 # Lectura de datos ---------------------------------
 
@@ -260,6 +261,34 @@ clust$data = processed.cleveland.bin # Se le asigna la variable data ya que fviz
 
 #Se grafica el cluster
 fviz_cluster(clust, palette = "jco", ggtheme = theme_minimal())
+
+# Reglas de Agrupacion ---------------------------------
+
+# Transformar variables numericas a variables categoricas
+processed.cleveland.cat <- processed.cleveland
+processed.cleveland.cat$age = cut(processed.cleveland$age, breaks = c(-Inf, 54.54, Inf), labels = c("< 54", "> 54"))
+processed.cleveland.cat$trestbps = cut(processed.cleveland$trestbps, breaks = c(-Inf, 131.7, Inf), labels = c("Small", "Large"))
+processed.cleveland.cat$chol = cut(processed.cleveland$chol, breaks = c(-Inf, 247.4, Inf), labels = c("Small", "Large"))
+processed.cleveland.cat$thalach = cut(processed.cleveland$thalach, breaks = c(-Inf, 149.6, Inf), labels = c("Small", "Large"))
+processed.cleveland.cat$oldpeak = cut(processed.cleveland$oldpeak, breaks = c(-Inf, 1.05, Inf), labels = c("Small", "Large"))
+
+
+
+# Reglas de agrupacion
+rules = apriori(
+        data = processed.cleveland.cat, 
+        parameter=list(support = 0.2, minlen = 2, maxlen = 6, target="rules"),
+        appearance=list(rhs = c("num=Present disease"))
+)
+
+
+# Orden decreciente segun "Support"
+inspect(sort(x = rules, decreasing = TRUE, by = "support"))
+
+# Orden decreciente segun "Confidence"
+inspect(sort(x = rules, decreasing = TRUE, by = "confidence"))
+
+
 
 # ---------------------------------
 ###
